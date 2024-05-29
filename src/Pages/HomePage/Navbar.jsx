@@ -43,12 +43,6 @@ const Navbar = () => {
             >
               Menu
             </NavLink>
-            <NavLink
-              to="/pricing"
-              className="nav-link hover:scale-105 text-[#ffffff]  ease-in-out duration-200"
-            >
-              Pricing
-            </NavLink>
 
             <NavLink
               to="/login"

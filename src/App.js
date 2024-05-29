@@ -1,12 +1,20 @@
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
-import RoutesPage from "./Routes/RoutesPage";
+import RoutesPage from "./RoutesPage/RoutesPage";
+import Navbar from "./Pages/HomePage/Navbar";
+import Footer from "./Pages/HomePage/Footer";
+
+import ProductContextProvider from "./ContextApi/ProductContextProvider";
 
 function App() {
   return (
-    <BrowserRouter>
-      <RoutesPage />
-    </BrowserRouter>
+    <ProductContextProvider>
+      <BrowserRouter>
+        <Navbar />
+        <RoutesPage />
+        <Footer />
+      </BrowserRouter>
+    </ProductContextProvider>
   );
 }
 
