@@ -7,11 +7,12 @@ import React, {
 } from "react";
 import axios from "axios";
 import reducer from "../Reducer/ProductReducer";
+
 export const AppContext = createContext();
 
 const api = "http://localhost:5454/api";
-
 const productsApi = `${api}/products`;
+
 const initialState = {
   isLoading: false,
   isError: false,
@@ -19,7 +20,7 @@ const initialState = {
   featureProducts: [],
   isSingleLoading: false,
   singleProduct: {},
-  user: null,
+  user: {},
 };
 
 const ProductContextProvider = ({ children }) => {
@@ -30,7 +31,7 @@ const ProductContextProvider = ({ children }) => {
     try {
       const response = await axios.get(productsApi);
       const products = await response.data;
-      console.log("products-----", products);
+      console.log("products-----", state.user);
 
       dispatch({
         type: "SET_API_DATA",
@@ -65,13 +66,15 @@ const ProductContextProvider = ({ children }) => {
   const getUser = async (url) => {
     dispatch({ type: "SET_USER_LOADING" });
 
+    console.log("hnnn gii kya productcontex", url);
     try {
       const response = await axios.get(url);
       const user = await response.data;
+      console.log("API User Data:", user);
 
       dispatch({
         type: "SET_USER_DATA",
-        payload: user,
+        payload: { data: user },
       });
     } catch (error) {
       console.log("error from appProvider USER", error);
