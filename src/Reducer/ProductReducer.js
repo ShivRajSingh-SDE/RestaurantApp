@@ -39,6 +39,7 @@ const ProductReducer = (state, action) => {
 
     ///from here .....
     case "SET_USER_DATA":
+      console.log("here data commning", action?.payload?.data);
       return {
         ...state,
         isLoading: false,
