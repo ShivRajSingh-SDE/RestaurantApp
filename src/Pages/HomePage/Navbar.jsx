@@ -23,7 +23,7 @@ const Navbar = () => {
 
       <div className="">
         <nav className="">
-          <ul className="hidden md:flex flex-row justify-center items-center space-x-4 font-sans">
+          <ul className=" hidden  md:flex flex-row justify-center items-center space-x-4 font-thin ">
             <NavLink
               to="/"
               className="nav-link hover:scale-105 text-[#ffffff]  ease-in-out duration-200"
@@ -38,7 +38,7 @@ const Navbar = () => {
               Contact
             </NavLink>
             <NavLink
-              to="/service"
+              to="/menu"
               className="nav-link hover:scale-105 text-[#ffffff]  ease-in-out duration-200"
             >
               Menu

@@ -3,31 +3,12 @@ import React from "react";
 import img1 from "./Assets/1.png";
 import img2 from "./Assets/2.png";
 import img3 from "./Assets/3.png";
+import { useAuth } from "../../ContextApi/ProductContextProvider";
+import { useNavigate } from "react-router-dom";
 
 const HomeWho = () => {
-  const HomeWork = [
-    {
-      id: 1,
-      cover: img1,
-      title: "Chicken Burger",
-      desc: "Promoting Healthier Lives by Managing Air Pollution Exposure Everywhere",
-      image: "Health",
-    },
-    {
-      id: 2,
-      cover: img2,
-      title: "Chicken Roast",
-      desc: "Making Air Quality Data Accessible for Governments and Policy Makers",
-      image: "Policy",
-    },
-    {
-      id: 3,
-      cover: img3,
-      title: "South Meal",
-      desc: "Driving Awareness and Empowering Citizens for Better Air Quality and Environment",
-      image: "Civic Action",
-    },
-  ];
+  const { products, isLoading, featureProducts } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <div className=" h-screen  ">
@@ -45,21 +26,26 @@ const HomeWho = () => {
         <br />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-          {HomeWork.map((item) => (
+          {featureProducts.slice(0, 3).map((item) => (
             <div
               key={item.id}
               className="rounded-lg overflow-hidden    transform hover:scale-105 transition duration-300  backdrop-filter backdrop-blur-lg bg-opacity-40"
             >
               <img
-                src={item.cover}
+                src={item.imageUrl}
                 alt={item.title}
                 className=" object-cover object-center"
               />
               <div className="mt-5 text-3xl flex flex-col justify-center items-center">
                 <h2 className="text-center text-[#ffffff]  uppercase font-thin mb-2">
-                  {item.title}
+                  {item.name}
                 </h2>
-                <button className=" p-2 border hover:bg-[#ffffff11] border-white text-white mt-5">
+                <button
+                  onClick={() => {
+                    navigate("/menu/" + item._id);
+                  }}
+                  className=" p-2 border hover:bg-[#ffffff11] border-white text-white mt-5"
+                >
                   Buy Now
                 </button>
               </div>
