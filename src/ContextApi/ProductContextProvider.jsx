@@ -58,27 +58,8 @@ const ProductContextProvider = ({ children }) => {
         payload: singleProduct,
       });
     } catch (error) {
-      console.log("error from appProvider getSingleProduct", error);
+      // console.log("error from appProvider getSingleProduct", error);
       dispatch({ type: "SET_SINGLE_ERROR" });
-    }
-  };
-
-  const getUser = async (url) => {
-    dispatch({ type: "SET_USER_LOADING" });
-
-    console.log("hnnn gii kya productcontex", url);
-    try {
-      const response = await axios.get(url);
-      const user = await response.data;
-      console.log("API User Data:", user);
-
-      dispatch({
-        type: "SET_USER_DATA",
-        payload: { data: user },
-      });
-    } catch (error) {
-      console.log("error from appProvider USER", error);
-      dispatch({ type: "SET_USER_ERROR" });
     }
   };
 
@@ -92,7 +73,6 @@ const ProductContextProvider = ({ children }) => {
         api,
         ...state,
         getSingleProduct,
-        getUser,
       }}
     >
       {children}

@@ -1,43 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useAuth } from "../../ContextApi/ProductContextProvider.jsx";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import Featured from "../Featured/Featured.jsx";
+import { useCart } from "../../ContextApi/CartContextProvider.jsx"; // Import useCart
 
 const ProductDetailPage = () => {
   const { id } = useParams();
-
-  const { getSingleProduct, api, singleProduct } = useAuth();
-  console.log("data for singlepage", singleProduct);
-
-  const [similarProducts, setSimilarProducts] = useState([]);
-  const [isLoadingSimilar, setIsLoadingSimilar] = useState(false);
-  const [error, setError] = useState(null);
-
+  const { getSingleProduct, isLoading, api, singleProduct } = useAuth();
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
+  console.log("addToCart", addToCart);
   useEffect(() => {
     getSingleProduct(`${api}/products/${id}`);
-  }, [id, api, getSingleProduct]);
+  }, [id]);
 
-  useEffect(() => {
-    if (singleProduct && singleProduct.tag && singleProduct.tag.length > 0) {
-      fetchSimilarProducts(singleProduct.tag[0]);
-    }
-  }, [singleProduct]);
-
-  const fetchSimilarProducts = async (tag) => {
-    setIsLoadingSimilar(true);
-    try {
-      const response = await fetch(`${api}/products/tag/${tag}`);
-      const data = await response.json();
-      if (response.ok) {
-        setSimilarProducts(data.data);
-      } else {
-        setError("Failed to fetch similar products");
-      }
-    } catch (error) {
-      setError("Failed to fetch similar products");
-    } finally {
-      setIsLoadingSimilar(false);
-    }
+  const handleAddToCart = () => {
+    addToCart(singleProduct);
+    navigate("/cart");
   };
 
   return (
@@ -51,19 +30,7 @@ const ProductDetailPage = () => {
                   className="w-full h-full object-cover rounded-lg"
                   src={singleProduct.imageUrl}
                   alt="Product Image"
-                />
-              </div>
-              <div className="flex -mx-2 mb-4">
-                <div className="w-1/2 px-2">
-                  <button className="w-full bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700">
-                    Add to Cart
-                  </button>
-                </div>
-                <div className="w-1/2 px-2">
-                  <button className="w-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-gray-300 dark:hover:bg-gray-600">
-                    Add to Wishlist
-                  </button>
-                </div>
+                ></img>
               </div>
             </div>
             <div className="md:flex-1 px-4">
@@ -93,7 +60,6 @@ const ProductDetailPage = () => {
                   </span>
                 </div>
               </div>
-
               <div className="mb-4">
                 <span className="font-bold text-gray-700 dark:text-gray-300">
                   Select Size:
@@ -124,13 +90,23 @@ const ProductDetailPage = () => {
                   {singleProduct.description}
                 </p>
               </div>
+
+              <div className=" flex flex-row mt-6">
+                <div className="">
+                  <button
+                    className="w-full bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700"
+                    onClick={handleAddToCart}
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <br />
       <br />
-
       <div className="max-w-[80%] mx-auto">
         <h1 className="text-5xl font-thin text-start mb-4 text-white">
           <span className="border-b border-[#ffffff] me-1 font-extralight">
@@ -138,52 +114,9 @@ const ProductDetailPage = () => {
           </span>
           Cuisine
         </h1>
-
         <div>
           <Featured />
         </div>
-      </div>
-
-      <br />
-      <br />
-      <br />
-
-      <div className="max-w-[80%] mx-auto">
-        <h1 className="text-5xl font-thin text-start mb-4 text-white">
-          <span className="border-b border-[#ffffff] me-1 font-extralight">
-            Similar{" "}
-          </span>
-          Products
-        </h1>
-        {isLoadingSimilar ? (
-          <p className="text-white">Loading similar products...</p>
-        ) : error ? (
-          <p className="text-red-500">{error}</p>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {similarProducts.map((product) => (
-              <div
-                key={product._id}
-                className="bg-white rounded-lg shadow-md overflow-hidden"
-              >
-                <img
-                  className="w-full h-48 object-cover"
-                  src={product.imageUrl}
-                  alt={product.name}
-                />
-                <div className="p-4">
-                  <h3 className="text-xl font-bold text-gray-800">
-                    {product.name}
-                  </h3>
-                  <p className="text-gray-600">{product.description}</p>
-                  <p className="text-gray-900 font-bold">
-                    ${product.price.discount}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
       </div>
     </div>
   );

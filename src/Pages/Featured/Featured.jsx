@@ -6,7 +6,7 @@ const Featured = () => {
   const { products, isLoading, featureProducts } = useAuth();
   const navigate = useNavigate();
 
-  console.log("featureProducts", featureProducts);
+  // console.log("featureProducts", featureProducts);
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
       {featureProducts.slice(0, 3).map((item) => (

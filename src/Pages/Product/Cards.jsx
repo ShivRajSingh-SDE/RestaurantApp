@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 function Cards(props) {
   const navigate = useNavigate();
-  console.log("cards------", props);
+
   console.log();
   return (
     <>

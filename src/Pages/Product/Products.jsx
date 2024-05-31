@@ -25,14 +25,6 @@ const filterOptions = [
   { name: "Non-Vegetarian", value: "non-vegetarian", current: false },
 ];
 
-const foodOptions = [
-  { name: "All", value: "all", current: true },
-  { name: "Pizza", value: "pizza", current: false },
-  { name: "Burger", value: "burger", current: false },
-  { name: "Indian", value: "indian", current: false },
-  { name: "French Fries", value: "french-fries", current: false },
-];
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -41,13 +33,31 @@ export const Products = () => {
   const { products, isLoading } = useAuth();
   const [sortOption, setSortOption] = useState(sortOptions[0]);
   const [filterOption, setFilterOption] = useState(filterOptions[0]);
-  const [foodOption, setFoodOption] = useState(foodOptions[0]);
+  const [foodOption, setFoodOption] = useState({
+    name: "All",
+    value: "all",
+    current: true,
+  });
+
+  const [foodOptions, setFoodOptions] = useState([]);
 
   useEffect(() => {
-    setSortOption(sortOptions[0]);
-    setFilterOption(filterOptions[0]);
-    setFoodOption(foodOptions[0]);
-  }, []);
+    if (products.length > 0) {
+      const categories = Array.from(
+        new Set(products.flatMap((product) => product.tags))
+      );
+      const newFoodOptions = [
+        { name: "All", value: "all", current: true },
+        ...categories.map((category) => ({
+          name: category,
+          value: category,
+          current: false,
+        })),
+      ];
+      setFoodOptions(newFoodOptions);
+      setFoodOption(newFoodOptions[0]);
+    }
+  }, [products]);
 
   if (isLoading) {
     return <div>Loading...</div>;
