@@ -27,6 +27,8 @@ const Cart = () => {
           userTable: usertabel,
           name,
           phone,
+          totalAmount,
+
           cartItems: cartItems.map((item) => item._id),
         };
         const {
@@ -37,7 +39,7 @@ const Cart = () => {
           `${url}/api/orders/create`,
           orderData
         );
-
+        console.log(response);
         // Debugging logs
         console.log("Order Data:", orderData);
         console.log("Response from /api/orders/create:", response.data);
