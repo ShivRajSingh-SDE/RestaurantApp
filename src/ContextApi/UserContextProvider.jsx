@@ -31,18 +31,16 @@ const UserContextProvider = ({ children }) => {
   const getUser = async (url) => {
     dispatch({ type: "SET_USER_LOADING" });
 
-    console.log("Fetching user data from:", url);
     try {
       const response = await axios.get(url);
       const user = await response.data;
-      console.log("API User Data:", user);
 
       dispatch({
         type: "SET_USER_DATA",
         payload: { data: user },
       });
     } catch (error) {
-      console.log("Error fetching user data:", error);
+      // console.log("Error fetching user data:", error);
       dispatch({ type: "SET_USER_ERROR" });
     }
   };

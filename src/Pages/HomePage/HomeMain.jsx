@@ -10,17 +10,15 @@ import { useUser } from "../../ContextApi/UserContextProvider";
 const HomeMain = () => {
   const { id } = useParams();
   const { getUser, api, user } = useUser();
-  console.log("Home component user:", user);
+  console.log("user", user);
 
   useEffect(() => {
-    if (id && (!user || Object.keys(user).length === 0)) {
-      const fetchUserData = async () => {
-        await getUser(`${api}/auth/${id}`);
-      };
+    const fetchUserData = async () => {
+      await getUser(`${api}/auth/${id}`);
+    };
 
-      fetchUserData();
-    }
-  }, [id, api, getUser, user]);
+    fetchUserData();
+  }, [id, api]);
 
   return (
     <div className="flex flex-col">
