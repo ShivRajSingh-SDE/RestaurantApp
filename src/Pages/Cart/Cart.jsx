@@ -38,14 +38,18 @@ const Cart = () => {
           orderData
         );
 
+        // Debugging logs
+        console.log("Order Data:", orderData);
+        console.log("Response from /api/orders/create:", response.data);
+
         const options = {
           key, // Enter the Key ID generated from the Dashboard
-          amount: totalAmount * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+          amount: Math.round(totalAmount * 100), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
           currency: "INR",
           name: "Ecommerce by pritam",
           description: "ecommerce payment gateway",
           image: "https://example.com/your_logo",
-          order_id: response.data._id, // Pass the `id` obtained in the response of Step 1
+          order_id: response.data.id, // Ensure this is correct
           callback_url: `${api}/payment/verify`,
           prefill: {
             name: name,
@@ -59,12 +63,13 @@ const Cart = () => {
             color: "#0000",
           },
         };
-        console.log(options);
+        console.log("Razorpay Options:", options);
 
         const razor = new window.Razorpay(options);
         razor.open();
       } catch (error) {
         console.error("Error processing order:", error.message);
+        alert("Oops! Something went wrong. Error in opening checkout");
       }
     }
   };
