@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-
 import { useCart } from "../../ContextApi/CartContextProvider.jsx";
 import { useUser } from "../../ContextApi/UserContextProvider.jsx";
 import Featured from "../Featured/Featured.jsx";
@@ -13,6 +12,10 @@ const Cart = () => {
   const [phone, setPhone] = useState("");
   const [error, setError] = useState("");
   const url = "http://localhost:5454";
+  console.log(user);
+  const totalAmount = cartItems
+    .reduce((total, item) => total + item.price.discount, 0)
+    .toFixed(2);
 
   const handleCheckout = async () => {
     if (!name || !phone) {
@@ -26,14 +29,40 @@ const Cart = () => {
           phone,
           cartItems: cartItems.map((item) => item._id),
         };
+        const {
+          data: { key },
+        } = await axios.get(`${api}/getkey`);
+
         const response = await axios.post(
           `${url}/api/orders/create`,
           orderData
         );
 
-        if (!response.data || !response.data._id) {
-          throw new Error("Invalid order data received from the server");
-        }
+        const options = {
+          key, // Enter the Key ID generated from the Dashboard
+          amount: totalAmount * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+          currency: "INR",
+          name: "Ecommerce by pritam",
+          description: "ecommerce payment gateway",
+          image: "https://example.com/your_logo",
+          order_id: response.data._id, // Pass the `id` obtained in the response of Step 1
+          callback_url: `${api}/payment/verify`,
+          prefill: {
+            name: name,
+            email: user?.data.email,
+            contact: phone,
+          },
+          notes: {
+            address: "Razorpay Corporate Office",
+          },
+          theme: {
+            color: "#0000",
+          },
+        };
+        console.log(options);
+
+        const razor = new window.Razorpay(options);
+        razor.open();
       } catch (error) {
         console.error("Error processing order:", error.message);
       }
