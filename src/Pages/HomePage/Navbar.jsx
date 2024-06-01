@@ -24,14 +24,14 @@ const Navbar = () => {
           <div className="flex justify-between space-x-5 -translate-x-3 items-start   ">
             <NavLink
               to="/menu"
-              className="nav-link transform transition-transform duration-300 hover:scale-105 text-center hover:shadow-3xl hover:bg-[#ffa600]   flex flex-col justify-center items-center text-white ease-in-out"
+              className="nav-link transform transition-transform duration-300 hover:scale-105 text-center hover:shadow-3xl hover:text-[#ffa600]   flex flex-col justify-center items-center text-white ease-in-out"
             >
               <AiOutlineTags size={30} />
               <h1>Special</h1>
             </NavLink>
             <NavLink
               to="/"
-              className="nav-link transform transition-transform duration-300 hover:scale-105 text-center hover:shadow-3xl hover:bg-[#ffa600]   flex flex-col justify-center items-center text-white ease-in-out"
+              className="nav-link transform transition-transform duration-300 hover:scale-105 text-center hover:shadow-3xl hover:text-[#ffa600]   flex flex-col justify-center items-center text-white ease-in-out"
             >
               <AiOutlineHome size={30} />
               <h1>Home</h1>
@@ -51,14 +51,14 @@ const Navbar = () => {
             <a
               href="https://www.google.com/search?q=Google+QR+Code+Scanner"
               to="/"
-              className="nav-link transform transition-transform duration-300 hover:scale-105 text-center hover:shadow-3xl hover:bg-[#ffa600]   flex flex-col justify-center items-center text-white ease-in-out"
+              className="nav-link transform transition-transform duration-300 hover:scale-105 text-center hover:shadow-3xl hover:text-[#ffa600]   flex flex-col justify-center items-center text-white ease-in-out"
             >
               <AiOutlineScan size={30} />
               <h1>Scan</h1>
             </a>
             <NavLink
               to="/cart"
-              className="nav-link transform transition-transform duration-300 hover:scale-105 text-center hover:shadow-3xl hover:bg-[#ffa600]   flex flex-col justify-center items-center text-white ease-in-out"
+              className="nav-link transform transition-transform duration-300 hover:scale-105 text-center hover:shadow-3xl hover:text-[#ffa600]   flex flex-col justify-center items-center text-white ease-in-out"
               style={{ position: "relative" }}
             >
               <AiOutlineShoppingCart size={30} />

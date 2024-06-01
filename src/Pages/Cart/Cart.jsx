@@ -5,10 +5,14 @@ import { useUser } from "../../ContextApi/UserContextProvider.jsx";
 import Featured from "../Featured/Featured.jsx";
 import Home from "../HomePage/Home.jsx";
 import empty from "../HomePage/Assets/empty.png";
+
 const Cart = () => {
   const { getUser, api, user } = useUser();
   console.log("api--- need ", api);
-  const usertabel = user.data.usertable;
+
+  // Add checks to ensure user and user.data are defined
+  const userTable = user?.data?.usertable;
+
   const { cartItems, removeFromCart } = useCart();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -24,8 +28,10 @@ const Cart = () => {
     .toFixed(2);
 
   const handleCheckout = async () => {
-    if (!user || !usertabel) {
-      setError("Please scan the scanner on the table.");
+    const localStorageUser = localStorage.getItem("user");
+
+    if (!user && !localStorageUser) {
+      alert("Please log in or scan the scanner on the table.");
       return;
     }
     if (!name || !phone) {
@@ -38,7 +44,7 @@ const Cart = () => {
 
     try {
       const orderData = {
-        userTable: usertabel,
+        userTable, // Use userTable
         name,
         phone,
         totalAmount,
@@ -61,7 +67,7 @@ const Cart = () => {
         order_id: response.data.id,
         prefill: {
           name: name,
-          email: user?.data.email,
+          email: user?.data?.email, // Use optional chaining for email
           contact: phone,
         },
         notes: {
@@ -231,139 +237,67 @@ const Cart = () => {
                       tax:
                     </dt>
                     <dd className="text-base font-medium text-white dark:text-white">
-                      ₹ 000
+                      00.00
                     </dd>
                   </dl>
                 </div>
 
-                <dl className="flex items-center justify-between  gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
-                  <dt className="text-base font-bold text-white dark:text-white">
-                    Total
+                <dl className="flex items-center justify-between gap-4">
+                  <dt className="text-lg font-medium text-white dark:text-white">
+                    Total Amount
                   </dt>
-                  <dd className="text-base font-bold text-white dark:text-white">
-                    ₹
+                  <dd className="text-lg font-medium text-white dark:text-white">
+                    ₹{" "}
                     {cartItems
                       .reduce((total, item) => total + item.price.discount, 0)
                       .toFixed(2)}
                   </dd>
                 </dl>
-              </div>
 
-              <div className="space-y-4 mt-4">
-                <div>
+                <div className="flex flex-col">
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-gray-900 dark:text-white"
+                    className="block text-sm font-medium text-white dark:text-white"
                   >
-                    Name
+                    Name:
                   </label>
                   <input
-                    type="text"
                     id="name"
+                    type="text"
+                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
-                    placeholder="Enter your name"
-                    required
                   />
                 </div>
-                <div>
+
+                <div className="flex flex-col">
                   <label
                     htmlFor="phone"
-                    className="block text-sm font-medium text-gray-900 dark:text-white"
+                    className="block text-sm font-medium text-white dark:text-white"
                   >
-                    Phone Number
+                    Phone:
                   </label>
                   <input
-                    type="number"
                     id="phone"
+                    type="tel"
+                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
-                    placeholder="Enter your phone number"
-                    required
                   />
                 </div>
-              </div>
 
-              {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-
-              <button
-                onClick={handleCheckout}
-                className="border-white border-2 p-2 mt-5 text-white flex justify-center items-center hover:bg-[#ffffff18] w-full transition-colors duration-300"
-              >
-                Proceed to Checkout
-              </button>
-
-              <div className="flex items-center justify-center gap-2 mt-4">
-                <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-                  or
-                </span>
-                <a
-                  href="/menu"
-                  title=""
-                  className="inline-flex items-center gap-2 text-sm text-white font-medium text-primary-700 underline hover:no-underline dark:text-primary-500"
-                >
-                  Continue Shopping
-                  <svg
-                    className="h-5 w-5"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M19 12H5m14 0-4 4m4-4-4-4"
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
-
-            <div className="space-y-4 rounded-lg border border-gray-200 bg-[#00000059] p-4 shadow-sm dark:border-gray-700 sm:p-6">
-              <form className="space-y-4">
-                <div>
-                  <label
-                    htmlFor="voucher"
-                    className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Do you have a voucher or gift card?
-                  </label>
-                  <input
-                    type="text"
-                    id="voucher"
-                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
-                    placeholder=""
-                  />
-                </div>
                 <button
-                  type="submit"
-                  className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  onClick={handleCheckout}
+                  className="mt-4 w-full bg-[#FFA500] text-white rounded-lg py-2 px-4 font-semibold hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
                 >
-                  Apply Code
+                  Checkout
                 </button>
-              </form>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <div className="mx-auto">
-          <br />
-          <br />
-          <br />
-          <br />
-          <h1 className="text-3xl font-thin text-center mb-4 text-black">
-            <span className="border-b border-[#ffffff] me-1 font-extralight">
-              Famous{" "}
-            </span>
-            Cuisine
-          </h1>
-          <div>
-            <Featured />
+            <div className="">
+              <Featured />
+            </div>
           </div>
         </div>
       </div>
