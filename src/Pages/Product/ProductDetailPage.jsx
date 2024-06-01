@@ -3,6 +3,7 @@ import { useAuth } from "../../ContextApi/ProductContextProvider.jsx";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import Featured from "../Featured/Featured.jsx";
 import { useCart } from "../../ContextApi/CartContextProvider.jsx"; // Import useCart
+import Home from "../HomePage/Home.jsx";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -21,7 +22,8 @@ const ProductDetailPage = () => {
 
   return (
     <div>
-      <div className="py-8">
+      <div className="">
+        <Home />
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row -mx-4 mt-6">
             <div className="md:flex-1 px-4 flex justify-center items-center">
