@@ -24,6 +24,10 @@ const Cart = () => {
     .toFixed(2);
 
   const handleCheckout = async () => {
+    if (!user || !usertabel) {
+      setError("Please scan the scanner on the table.");
+      return;
+    }
     if (!name || !phone) {
       setError("Please enter your name and phone number.");
       return;
