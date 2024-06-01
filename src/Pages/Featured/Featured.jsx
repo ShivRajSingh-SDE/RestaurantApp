@@ -8,26 +8,26 @@ const Featured = () => {
 
   // console.log("featureProducts", featureProducts);
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-      {featureProducts.slice(0, 3).map((item) => (
+    <div className="flex flex-wrap justify-center">
+      {featureProducts.slice(0, 4).map((item) => (
         <div
           key={item.id}
-          className="rounded-lg overflow-hidden    transform hover:scale-105 transition duration-300  backdrop-filter backdrop-blur-lg bg-opacity-40"
+          className="relative w-[45%] rounded-lg overflow-hidden transform hover:scale-105 transition duration-300 m-2"
         >
           <img
             src={item.imageUrl}
             alt={item.title}
-            className=" object-cover object-center"
+            className="object-cover h-full w-full"
           />
-          <div className="mt-5 text-3xl flex flex-col justify-center items-center">
-            <h2 className="text-center text-[#ffffff]  uppercase font-thin mb-2">
+          <div className="absolute bottom-0 flex flex-col justify-center w-full items-center bg-black rounded-t-2xl backdrop-filter backdrop-blur-sm  bg-opacity-30 p-4">
+            <h2 className="text-center text-white uppercase font-thin mb-2 text-sm ">
               {item.name}
             </h2>
             <button
               onClick={() => {
                 navigate("/menu/" + item._id);
               }}
-              className=" p-2 border hover:bg-[#ffffff11] border-white text-white mt-5"
+              className="p-1 border hover:bg-[#ffffff11] border-white text-white "
             >
               Buy Now
             </button>

@@ -4,7 +4,6 @@ import img2 from "./Assets/Product2.png";
 import img3 from "./Assets/Product3.png";
 import img4 from "./Assets/Product4.png";
 import img5 from "./Assets/Product5.png";
-import { Navigate } from "react-router-dom";
 
 const Product = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -40,6 +39,7 @@ const Product = () => {
         "Start your day on a refreshing note with our Coffee Delights. Whether you prefer a classic espresso or a creamy latte, our expertly crafted coffee blends are sure to awaken your senses and brighten your day.",
     },
   ];
+
   const [intervalId, setIntervalId] = useState(null);
 
   useEffect(() => {
@@ -69,51 +69,46 @@ const Product = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-stretch max-w-[90%] mx-auto w-full">
-      <br />
-      <br />
+    <div className="flex flex-col items-center max-w-7xl mx-auto w-full p-4">
       <div className="flex justify-center  flex-row items-center mt-10">
-        <h1 className="text-5xl font-thin text-center mb-4 text-white">
+        <h1 className="text-4xl font-thin text-center mb-1 text-black">
           <span className="border-b border-[#ffffff] me-1 font-extralight">
             Famous{" "}
           </span>
           Cuisine
         </h1>
       </div>
-      <br />
-      <br />
-      <br />
 
-      <div className="flex justify-center">
-        <div className="w-[50%] flex justify-center items-center  rounded-2xl drop-shadow-2xl shadow-2xl bg-[#ffffff] shadow-[#ffffff44] backdrop-filter backdrop-blur-lg bg-opacity-40">
-          <div className="p-6 flex justify-center items-center flex-col">
-            <h3 className="text-white text-5xl font-bold mb-10">
+      <div className="flex flex-col lg:flex-row-reverse justify-center items-center w-full mt-10 p-4 gap-4">
+        <div className="w-full lg:w-1/2 flex justify-center items-center rounded-2xl drop-shadow-2xl shadow-2xl bg-[#0000003f] rounded-t-2xl backdrop-filter backdrop-blur-sm  bg-opacity-30 p-2">
+          <div className="flex flex-col justify-center items-center text-center">
+            <h3 className="text-[#ffffff] text-2xl sm:text-4xl lg:text-5xl font-bold mb-6 lg:mb-10">
               {products[currentIndex].name}
             </h3>
-            <p className="text-white  text-center font-serif text-3xl">
+            <p className="text-black text-[15px] font-serif">
               {products[currentIndex].description}
             </p>
           </div>
         </div>
 
-        <div className="flex flex-col w-[50%] items-center">
-          <div className="w-full flex justify-end space-x-3 mb-6 items-center ">
+        <div className="w-full lg:w-1/2 flex flex-col items-center">
+          <div className="w-full flex justify-between lg:justify-end space-x-3 mb-4 lg:mb-6 items-center">
             <button
-              className="  border border-white text-white hover:bg-[#ffffff0a] p-3  rounded "
+              className="border border-white text-black hover:bg-[#ffffff0a] p-3 rounded transform hover:scale-105 transition duration-300"
               onClick={prevSlide}
             >
               Previous
             </button>
             <button
-              className=" border border-white text-white hover:bg-[#ffffff0a] p-3  rounded"
+              className="border border-white text-black hover:bg-[#ffffff0a] p-3 rounded transform hover:scale-105 transition duration-300"
               onClick={nextSlide}
             >
               Next
             </button>
           </div>
 
-          <div className="flex justify-center items-center flex-grow cursor-pointer">
-            <div className="relative rounded-md overflow-hidden transform transition-transform scale-105">
+          <div className="w-full flex justify-center items-center flex-grow cursor-pointer">
+            <div className="relative rounded-md overflow-hidden transform transition duration-300 hover:scale-105 w-full">
               <img
                 src={products[currentIndex].image}
                 alt="Product"

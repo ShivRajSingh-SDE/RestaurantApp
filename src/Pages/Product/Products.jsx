@@ -10,6 +10,8 @@ import {
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
 import { useLocation } from "react-router-dom";
+import HomeWho from "../HomePage/HomeWho";
+import Home from "../HomePage/Home";
 
 const sortOptions = [
   { name: "Most Popular", value: "most-popular", current: true },
@@ -109,16 +111,17 @@ export const Products = () => {
 
   return (
     <div>
-      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
-          <h1 className="font text-4xl font-bold tracking-tight text-white">
+      <main className="mx-auto ">
+        <Home />
+        <div className="flex items-baseline justify-between border-b max-w-7xl px-4 sm:px-6 lg:px-8 border-gray-200 pb-6 pt-8">
+          <h1 className="font text-4xl font-bold tracking-tight text-black">
             Menu
           </h1>
 
           <div className="flex items-center">
             <Menu as="div" className="relative inline-block text-left">
               <div>
-                <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-100 hover:text-gray-400">
+                <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-400">
                   Sort
                   <ChevronDownIcon
                     className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
@@ -164,7 +167,7 @@ export const Products = () => {
 
             <Menu as="div" className="relative inline-block text-left ml-4">
               <div>
-                <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-100 hover:text-gray-400">
+                <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-400">
                   Filter
                   <ChevronDownIcon
                     className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
@@ -210,7 +213,7 @@ export const Products = () => {
 
             <Menu as="div" className="relative inline-block text-left ml-4">
               <div>
-                <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-100 hover:text-gray-400">
+                <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-400">
                   Food
                   <ChevronDownIcon
                     className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
@@ -261,18 +264,20 @@ export const Products = () => {
             Products
           </h2>
 
-          <div className="flex flex-wrap justify-around items-center">
+          <div className="flex flex-wrap justify-around">
             {sortedAndFilteredProducts.map((item) => (
-              <Cards
-                key={item._id}
-                id={item._id}
-                rating={item.rating}
-                name={item.name}
-                describe={item.description}
-                provider={item.provider}
-                price={item.price.discount}
-                image={item.imageUrl}
-              />
+              <div className=" w-44 ">
+                <Cards
+                  key={item._id}
+                  id={item._id}
+                  rating={item.rating}
+                  name={item.name}
+                  describe={item.description}
+                  provider={item.provider}
+                  price={item.price.discount}
+                  image={item.imageUrl}
+                />
+              </div>
             ))}
           </div>
         </section>

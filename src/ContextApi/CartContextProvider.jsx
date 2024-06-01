@@ -1,6 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 
-// Create a context for the cart
 const CartContext = createContext();
 
 export const useCart = () => {
@@ -13,21 +12,14 @@ export const CartProvider = ({ children }) => {
     return savedCartItems ? JSON.parse(savedCartItems) : [];
   });
 
-  // Sync cartItems to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  // Load cart items from localStorage only once when the CartProvider mounts
   useEffect(() => {
-    const handleStorageChange = () => {
-      const localStorageItems = localStorage.getItem("cartItems");
-      if (localStorageItems) {
-        const parsedItems = JSON.parse(localStorageItems);
-        if (JSON.stringify(parsedItems) !== JSON.stringify(cartItems)) {
-          // If the localStorage items differ from the current state, ignore changes
-          localStorage.setItem("cartItems", JSON.stringify(cartItems));
-        }
+    const handleStorageChange = (event) => {
+      if (event.key === "cartItems") {
+        setCartItems(JSON.parse(event.newValue));
       }
     };
 
@@ -36,7 +28,7 @@ export const CartProvider = ({ children }) => {
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, [cartItems]);
+  }, []);
 
   const addToCart = (product) => {
     setCartItems((prevItems) => [...prevItems, product]);

@@ -14,7 +14,9 @@ body {
   
   font-family: "Poppins", sans-serif;
 
-  background-color: #38383B;
+  /* background-color: #38383B; */
+  background-color: #6e424233;
+  color: black;
 }
 
 .font{
@@ -29,7 +31,7 @@ code {
 
 #imgbg {
   
-  background-image: url(./Pages/HomePage/Assets/Food\ 1.png);
+  background-image: url(./Pages/HomePage/Assets/homepage.png);
   background-color: white;
   background-size: cover;
   background-repeat: no-repeat;

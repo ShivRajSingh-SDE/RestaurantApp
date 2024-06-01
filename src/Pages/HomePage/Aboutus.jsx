@@ -4,23 +4,20 @@ const About = () => {
   return (
     <div className=" w-[90%] mx-auto">
       <br />
-      <br />
-      <br />
-      <br />
       <div className="flex justify-center w-[70%] mx-auto flex-row items-center mb-1">
-        <h1 className="text-5xl font-thin text-center mb-4 text-white">
+        <h1 className="text-3xl font-thin text-center mb-4 text-black">
           <span className="border-b border-[#ffffff] mr-2 font-extralight">
             Certified
           </span>
           Restaurant
         </h1>
       </div>
-      <section class="overflow-hidden pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]  shadow-[#78d6e744] backdrop-filter backdrop-blur-lg bg-opacity-40  rounded-2xl drop-shadow-xl  dark:bg-dark">
+      <section class="overflow-hidden pt-4 pb-1 lg:pt-[120px] lg:pb-[90px]  shadow-[#78d6e744] backdrop-filter backdrop-blur-lg bg-opacity-40  rounded-2xl drop-shadow-xl  dark:bg-dark">
         <div class="container mx-auto">
-          <div class="flex flex-wrap items-center justify-between -mx-4">
+          <div class="flex flex-wrap items-center justify-between ">
             <div class="w-full px-4 lg:w-6/12">
               <div class="flex items-center -mx-3 sm:-mx-4">
-                <div class="w-full px-3 sm:px-4 xl:w-1/2">
+                <div class="w-1/2">
                   <div class="py-3 sm:py-4">
                     <img
                       src="https://image.lexica.art/full_webp/18e918a2-edf7-4042-8a75-6a67149288b2"
@@ -618,20 +615,20 @@ const About = () => {
               </div>
             </div>
             <div class="w-full px-4 lg:w-1/2 xl:w-5/12">
-              <div class="mt-10 lg:mt-0">
-                <h2 class="block mb-4 text-4xl font-semibold text-gray-300">
+              <div class="mt-10 lg:mt-0 text-center">
+                <h2 class="block mb-4 text-2xl  font-semibold text-gray-700">
                   Experience Culinary Excellence with Over 7 Years of Expertise
                 </h2>
-                <p class="mb-5  text-2xl text-gray-400">
+                <p class="mb-5  text-[16px] text-gray-500">
                   Committed to providing the finest dining experience using the
                   freshest ingredients
                 </p>
-                <p class="mb-8  text-2xl text-gray-400">
+                <p class="mb-8  text-[16px] text-gray-500">
                   Our chefs innovate and create exceptional dishes in-house,
                   ensuring quality and flavor Driven by a passion for culinary
                   arts, we aim to delight your taste buds
                 </p>
-                <button className=" p-3 border border-white text-white hover:bg-[#ffffff11]">
+                <button className=" p-3 border border-white text-black hover:bg-[#ffffff11]">
                   Reserve Your Table
                 </button>
               </div>
