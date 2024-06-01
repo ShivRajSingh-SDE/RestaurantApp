@@ -7,6 +7,7 @@ import Home from "../HomePage/Home.jsx";
 import empty from "../HomePage/Assets/empty.png";
 const Cart = () => {
   const { getUser, api, user } = useUser();
+  console.log("api--- need ", api);
   const usertabel = user.data.usertable;
   const { cartItems, removeFromCart } = useCart();
   const [name, setName] = useState("");
@@ -16,7 +17,7 @@ const Cart = () => {
   const [successMessage, setSuccessMessage] = useState(""); // State to display success message
   const [errorMessage, setErrorMessage] = useState(""); // State to display error message
 
-  const url = "http://localhost:5454";
+  const url = "https://restaurantbackend-i06a.onrender.com";
 
   const totalAmount = cartItems
     .reduce((total, item) => total + item.price.discount, 0)
@@ -43,7 +44,7 @@ const Cart = () => {
       const {
         data: { key },
       } = await axios.get(`${api}/getkey`);
-      const response = await axios.post(`${url}/api/orders/create`, orderData);
+      const response = await axios.post(`${api}/orders/create`, orderData);
 
       const options = {
         key,
@@ -63,12 +64,12 @@ const Cart = () => {
           address: "Razorpay Corporate Office",
         },
         theme: {
-          color: "#00FF00", // Green theme
+          color: "#FFA500", // Green theme
         },
         handler: async (response) => {
           try {
             const verificationResponse = await axios.post(
-              `${url}/api/payment/verify`,
+              `${api}/payment/verify`,
               response
             );
             if (verificationResponse.data.success) {

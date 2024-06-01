@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const UserContext = createContext();
 
-const api = "http://localhost:5454/api";
+const api = "https://restaurantbackend-i06a.onrender.com/api";
 
 const initialState = {
   isUserLoading: false,

@@ -10,7 +10,9 @@ import reducer from "../Reducer/ProductReducer";
 
 export const AppContext = createContext();
 
-const api = "http://localhost:5454/api";
+const api = "https://restaurantbackend-i06a.onrender.com/api";
+
+console.log(process.env.BACKEND, "api---");
 const productsApi = `${api}/products`;
 
 const initialState = {
